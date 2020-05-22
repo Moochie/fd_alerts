@@ -1,6 +1,6 @@
 Config = {}
 
-Config.CopsTrigger = true
+Config.CopsTrigger = false
 
 Config.ClassNames = {
 	['0'] = 'Compact',
