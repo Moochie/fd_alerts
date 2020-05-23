@@ -118,6 +118,7 @@ function DrawGunBlip(Coords)
 		elseif scale == 1.25 then
 			SetBlipColour(blip, 0)
 			scale = 1.0
+			SetBlipAsShortRange(blip, true)
 			AlertBlips[blip].Status = false
 		end
 		SetBlipScale(blip, scale)
@@ -148,6 +149,7 @@ function DrawCarBlip(Coords)
 		elseif scale == 1.25 then
 			SetBlipColour(blip, 0)
 			scale = 1.0
+			SetBlipAsShortRange(blip, true)
 			AlertBlips[blip].Status = false
 		end
 		SetBlipScale(blip, scale)
