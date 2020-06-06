@@ -94,6 +94,28 @@ AddEventHandler('FD_Alerts:AlertCar', function(C)
 	end
 end)
 
+RegisterNetEvent('FD_Alerts:AlertHouse')
+AddEventHandler('FD_Alerts:AlertHouse', function(C)
+	print('Draw Marker')
+	local Coords = C
+	local Draw = true
+	--print('Worked')
+	for k,v in pairs(AlertBlips) do
+		if v.Type == 'House' then
+			local distance = GetDistanceBetweenCoords(Coords, v.Coords)
+			if distance < 25 then
+				if v.Status then
+					Draw = false
+					print('False')
+				end
+			end
+		end
+	end
+	if Draw then
+		DrawHouseBlip(Coords)
+	end
+end)
+
 function DrawGunBlip(Coords)
 	local blip = AddBlipForCoord(Coords)
 	SetBlipSprite(blip, 119)
@@ -149,6 +171,37 @@ function DrawCarBlip(Coords)
 		elseif scale == 1.25 then
 			SetBlipColour(blip, 0)
 			scale = 1.0
+			SetBlipAsShortRange(blip, true)
+			AlertBlips[blip].Status = false
+		end
+		SetBlipScale(blip, scale)
+	end
+end
+
+function DrawHouseBlip(Coords)
+	local blip = AddBlipForCoord(Coords)
+	SetBlipSprite(blip, 411)
+	SetBlipDisplay(blip, 4)
+	SetBlipScale(blip, 1.0)
+	SetBlipColour(blip, 1)
+	SetBlipAlpha(blip, 150)
+	SetBlipAsShortRange(blip, false)
+	BeginTextCommandSetBlipName('STRING')
+	AddTextComponentSubstringPlayerName('Home Invasion')
+	EndTextCommandSetBlipName(blip)
+	AlertBlips[blip] =  {['Coords']=Coords, ['Type']='House', ['Status']=true}
+	local scale = 1
+	while colour ~= 0 do
+		Citizen.Wait(60000)
+		if scale == 1 then
+			scale = 0.8
+		elseif scale == 0.8 then
+			scale = 0.6
+		elseif scale == 0.6 then
+			scale = 0.4
+		elseif scale == 0.4 then
+			SetBlipColour(blip, 0)
+			scale = 0.2
 			SetBlipAsShortRange(blip, true)
 			AlertBlips[blip].Status = false
 		end
